@@ -16,4 +16,6 @@ function NavBar(){
         <Button variant="contained"style={{margin:'4px'}}>SignIn</Button>
         <Button variant="contained"style={{margin:'4px'}}>SignUp</Button>
         </div>
-   
+    </div>
+}
+export default NavBar
