@@ -7,7 +7,7 @@ function NavBar() {
       style={{
         display: "flex",
         justifyContent: "space-between",
-        borderBottom: "0.5px solid black",
+        borderBottom: "0.01px solid black",
       }}
     >
       <div>

@@ -6,9 +6,9 @@ const jwt=require('jsonwebtoken');
 const fs=require('fs');
 const { throws } = require('assert');
 const port=3001;
-
-app.use(express.json());
 app.use(cors());
+app.use(express.json());
+
 app.use(bodyParser.json());
 
 // let ADMINS = [];

@@ -3,10 +3,11 @@ import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import { Typography } from "@mui/material";
 import { useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 function Signup() {
   const [Email,setEmail] = useState("");
   const [Password,setPassword] = useState("");
+  const navigate = useNavigate();
   return (
     <div
       style={{
@@ -25,7 +26,7 @@ function Signup() {
             Email
             id="outlined-Email"
             label="Email"
-            defaultValue="example@gmail.com"
+            placeholder="example@gmail.com"
             style={{ width: "90%", padding: "10px", marginTop: "10px" }}
             onChange={(e)=>{
               setEmail(e.target.value);
@@ -51,13 +52,15 @@ function Signup() {
               },
               body:JSON.stringify({
                 username:Email,
-                Password:Password
+                password:Password
               })
             }).then(async(res)=>{
               return res.json().then((data)=>{
                 let token=data.token;
                 localStorage.setItem('token',token);
-                console.log(token);
+                if(data.token){
+                  navigate('/signin');
+                }
               })
             })
           }}>

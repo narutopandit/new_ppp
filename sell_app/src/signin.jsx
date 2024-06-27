@@ -2,8 +2,13 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import { Typography } from "@mui/material";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function SignIn() {
+  const [Email,setEmail] = useState("");
+  const [Password,setPassword] = useState("");
+  const navigate=useNavigate();
   return (
     <div
       style={{
@@ -22,8 +27,11 @@ function SignIn() {
             Email
             id="outlined-Email"
             label="Email"
-            defaultValue="example@gmail.com"
+            placeholder="example@gmail.com"
             style={{ width: "90%", padding: "10px", marginTop: "10px" }}
+            onChange={(e)=>{
+              setEmail(e.target.value);
+            }}
           />
           <br />
           <TextField
@@ -32,9 +40,30 @@ function SignIn() {
             label="password"
             type="password"
             style={{ width: "90%", padding: "10px" }}
+            onChange={(p)=>{
+              setPassword(p.target.value);
+            }}
           />
           <br />
-          <Button variant="contained" style={{ margin: "10px" }}>
+          <Button variant="contained" style={{ margin: "10px" }} onClick={async()=>{
+            fetch('http://localhost:3001/admin/login',{
+              method: 'POST',
+              headers:{
+                'Content-Type': 'application/json',
+                username:Email,
+                password:Password
+              }
+            }).then(async(res)=>{
+              return res.json().then((data)=>{
+                let token=data.token;
+                localStorage.setItem('token',token);
+                if(data.token){
+                  console.log(data);
+                  navigate('/load');
+                }
+              })
+            })
+          }}>
             SignIn
           </Button>
         </Card>
