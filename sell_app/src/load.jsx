@@ -2,7 +2,7 @@ import Card from "@mui/material/Card";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import TextField from "@mui/material/TextField";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 function Load(){
     const navigate = useNavigate();
     const [search,setSearch] =useState("");
@@ -10,7 +10,6 @@ function Load(){
         <Card variant="contained" style={{margin:'10px',border:'0.2px solid black'}}>
             <div style={{display:'flex'}}>
                 <TextField
-            Search
             id="outlined-Search"
             label="Search"
             placeholder="Search by CourseId"

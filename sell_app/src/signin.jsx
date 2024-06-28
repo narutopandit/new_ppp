@@ -6,8 +6,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function SignIn() {
-  const [Email,setEmail] = useState("");
-  const [Password,setPassword] = useState("");
+  const [email,setEmail] = useState("");
+  const [password,setPassword] = useState("");
   const navigate=useNavigate();
   return (
     <div
@@ -24,7 +24,6 @@ function SignIn() {
         </Typography>
         <Card variant="outlined">
           <TextField
-            Email
             id="outlined-Email"
             label="Email"
             placeholder="example@gmail.com"
@@ -35,7 +34,6 @@ function SignIn() {
           />
           <br />
           <TextField
-            Password
             id="outlined-Password"
             label="password"
             type="password"
@@ -50,8 +48,8 @@ function SignIn() {
               method: 'POST',
               headers:{
                 'Content-Type': 'application/json',
-                username:Email,
-                password:Password
+                username:email,
+                password:password
               }
             }).then(async(res)=>{
               return res.json().then((data)=>{
@@ -59,7 +57,7 @@ function SignIn() {
                 localStorage.setItem('token',token);
                 if(data.token){
                   console.log(data);
-                  navigate('/load');
+                  window.location='/load'
                 }
               })
             })

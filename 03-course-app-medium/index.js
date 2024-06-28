@@ -66,13 +66,12 @@ app.post('/admin/signup', (req, res) => {
     let admins = JSON.parse(data);
     let userExist=admins.find(a=>a.username==admin.username);
     if(userExist){
-      res.status(403).json({message:'Admin already exists'});
+      res.status(403).json({error:'Admin already exists'});
     }else{
-      let token=genrateJwtAdmin(admin);
       admins.push(admin);
       fs.writeFile('03-course-app-medium/admins.json',JSON.stringify(admins),(err)=>{
         if(err) throw err;
-        res.status(201).json({message:'Admin created',token});
+        res.status(201).json({message:'Admin created'});
       })
     }
   })
@@ -153,6 +152,11 @@ app.get('/admin/courses',authenticateAdmin, (req, res) => {
     })
   })
 });
+
+app.get('/admin/courses/admin/me',authenticateAdmin,(req,res)=>{
+  res.json({
+    username:req.admin.username}
+)})
 
 // User routes
 app.post('/users/signup', (req, res) => {

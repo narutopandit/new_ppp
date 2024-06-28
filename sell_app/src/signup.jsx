@@ -5,8 +5,8 @@ import { Typography } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 function Signup() {
-  const [Email,setEmail] = useState("");
-  const [Password,setPassword] = useState("");
+  const [email,setEmail] = useState("");
+  const [password,setPassword] = useState("");
   const navigate = useNavigate();
   return (
     <div
@@ -23,7 +23,6 @@ function Signup() {
         </Typography>
         <Card variant="outlined">
           <TextField
-            Email
             id="outlined-Email"
             label="Email"
             placeholder="example@gmail.com"
@@ -34,7 +33,6 @@ function Signup() {
           />
           <br />
           <TextField
-            Password
             id="outlined-Password"
             label="password"
             type="password"
@@ -51,14 +49,14 @@ function Signup() {
                 'Content-Type': 'application/json'
               },
               body:JSON.stringify({
-                username:Email,
-                password:Password
+                username:email,
+                password:password
               })
             }).then(async(res)=>{
               return res.json().then((data)=>{
-                let token=data.token;
+                let token=data.message;
                 localStorage.setItem('token',token);
-                if(data.token){
+                if(data.message){
                   navigate('/signin');
                 }
               })
