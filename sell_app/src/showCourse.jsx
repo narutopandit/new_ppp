@@ -9,6 +9,9 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import { useNavigate } from 'react-router-dom';
+import Update from './updateCourse';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -22,6 +25,7 @@ const ExpandMore = styled((props) => {
 }));
 
 function Show() {
+  const navigate = useNavigate();
   const [batch, setBatch] = React.useState([]);
   const [expanded, setExpanded] = React.useState({});
 
@@ -70,8 +74,12 @@ function Show() {
               <b>Title:</b><br />
               <i>{course.title}</i><br />
               <b>Price:</b><br />
-              <i>$</i>{course.price}<br />
+              <i>$ </i>{course.price}<br />
             </Typography>
+
+            <Button variant="contained" style={{margin:'6px'}} onClick={()=>{
+              navigate(`/updateCourse/${course.id}`);
+            }}>Update</Button>
           </CardContent>
           <CardActions disableSpacing>
             <ExpandMore

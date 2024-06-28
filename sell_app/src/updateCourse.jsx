@@ -4,11 +4,13 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import { Typography } from "@mui/material";
+import { useNavigate,useParams } from "react-router-dom";
 
 
 
-function CreateCourse(){
-    
+function Update(){
+    const navigate = useNavigate();
+    const {Id} =useParams();
     const [title,setTitle] = useState("");
     const [description,setDescription] = useState("");
     const [price,setPrice] = useState();
@@ -76,15 +78,14 @@ function CreateCourse(){
               variant="contained"
               style={{ marginTop: "1rem" }}
               onClick={async()=>{
-                fetch('http://localhost:3001/admin/courses',{
-                   method: 'POST',
+                fetch('http://localhost:3001/admin/courses/'+Id,{
+                   method: 'PUT',
                    body:JSON.stringify({
                     title:title,
                     description:description,
                     price:price,
                     imageLink:image,
                     published:'true',
-                    id:Math.floor(Math.random()*10000)
                    }),
                    headers:{
                        'Content-Type': 'application/json',
@@ -94,15 +95,22 @@ function CreateCourse(){
                 }).then(async(res)=>{
                     return res.json().then((data)=>{
                         console.log(data);
+                        if(data.message){
+                            navigate('/showCourse')
+                        }
                     })
                 })
            }}
             >
-              Create
+              Update
             </Button>
           </Card>
         </Box>
       </Box>)
 }
 
-export default CreateCourse
+export default Update
+
+
+
+

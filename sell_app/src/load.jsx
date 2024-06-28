@@ -23,7 +23,7 @@ function Load(){
             </div>
         
             <Button variant="contained" style={{margin:'5px'}} onClick={()=>{
-                navigate('/courseCreate');
+                navigate('/createCourse');
             }}>Create Course</Button>
             <Button variant="contained" style={{margin:'5px'}} onClick={()=>
                 navigate('/showCourse')
