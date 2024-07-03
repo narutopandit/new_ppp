@@ -3,12 +3,13 @@ import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import { Typography } from "@mui/material";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 
 function SignIn() {
   const [email,setEmail] = useState("");
   const [password,setPassword] = useState("");
   const navigate=useNavigate();
+  // localStorage.setItem('token',null)
   return (
     <div
       style={{
@@ -44,7 +45,8 @@ function SignIn() {
           />
           <br />
           <Button variant="contained" style={{ margin: "10px" }} onClick={async()=>{
-            fetch('http://localhost:3001/admin/login',{
+            let role=localStorage.getItem('role');
+            fetch(`http://localhost:3001/${role}/login`,{
               method: 'POST',
               headers:{
                 'Content-Type': 'application/json',
@@ -56,8 +58,10 @@ function SignIn() {
                 let token=data.token;
                 localStorage.setItem('token',token);
                 if(data.token){
-                  console.log(data);
-                  window.location='/load'
+                  window.location=`/load`
+                  navigate('/load')
+                }else{
+                  alert(data.error);
                 }
               })
             })

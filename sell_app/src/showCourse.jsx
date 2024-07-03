@@ -11,7 +11,6 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import { useNavigate } from 'react-router-dom';
-import Update from './updateCourse';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -25,12 +24,13 @@ const ExpandMore = styled((props) => {
 }));
 
 function Show() {
-  const navigate = useNavigate();
+  
   const [batch, setBatch] = React.useState([]);
   const [expanded, setExpanded] = React.useState({});
 
   React.useEffect(() => {
-    fetch('http://localhost:3001/admin/courses', {
+    let role = localStorage.getItem('role');
+    fetch(`http://localhost:3001/${role}/courses`, {
       method: 'GET',
       headers: {
         "Authorization": "Bearer " + localStorage.getItem("token"),
@@ -76,10 +76,7 @@ function Show() {
               <b>Price:</b><br />
               <i>$ </i>{course.price}<br />
             </Typography>
-
-            <Button variant="contained" style={{margin:'6px'}} onClick={()=>{
-              navigate(`/updateCourse/${course.id}`);
-            }}>Update</Button>
+            <Condition Id={course.id}></Condition>
           </CardContent>
           <CardActions disableSpacing>
             <ExpandMore
@@ -104,6 +101,20 @@ function Show() {
       ))}
     </div>
   );
+}
+
+function Condition({Id}){
+  const navigate = useNavigate();
+  let role = localStorage.getItem('role');
+  if(role==='admin'){
+    return <Button variant="contained" style={{margin:'6px'}} onClick={()=>{
+      navigate(`/updateCourse/${Id}`);
+    }}>Update</Button>
+  }else{
+    return <Button variant="contained" style={{margin:'6px'}} onClick={()=>{
+      navigate(`/purchase/${Id}`);
+    }}>Purchase</Button>
+  }
 }
 
 export default Show;

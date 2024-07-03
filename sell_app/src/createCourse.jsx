@@ -85,7 +85,6 @@ function CreateCourse(){
                     price:price,
                     imageLink:image,
                     published:'true',
-                    id:Math.floor(Math.random()*10000)
                    }),
                    headers:{
                        'Content-Type': 'application/json',

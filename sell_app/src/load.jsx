@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 function Load(){
     const navigate = useNavigate();
     const [search,setSearch] =useState("");
+    let role = localStorage.getItem('role');
     return <div style={{display:'flex',justifyContent:'center'}}>
         <Card variant="contained" style={{margin:'10px',border:'0.2px solid black'}}>
             <div style={{display:'flex'}}>
@@ -21,9 +22,12 @@ function Load(){
           <Button variant="contained" style={{margin:'43px 40px 0 0',height:'30px'}}>Search</Button>
             </div>
         
-            <Button variant="contained" style={{margin:'5px'}} onClick={()=>{
+            {role !=='users'&&(<Button variant="contained" style={{margin:'5px'}} onClick={()=>{
                 navigate('/createCourse');
-            }}>Create Course</Button>
+            }}>Create Course</Button>)}
+            {role =='users'&&(<Button variant="contained" style={{margin:'5px'}} onClick={()=>{
+                navigate('/purchaseCourse');
+            }}>My Purchase Courses</Button>)}
             <Button variant="contained" style={{margin:'5px'}} onClick={()=>
                 navigate('/showCourse')
             }>Show Course</Button>
